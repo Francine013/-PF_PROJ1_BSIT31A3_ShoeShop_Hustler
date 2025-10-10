@@ -21,7 +21,6 @@ namespace ShoeShop.Web.Controllers
             _inventoryService = inventoryService;
             _env = env;
         }
-
         public async Task<IActionResult> Index()
         {
             try
@@ -43,7 +42,6 @@ namespace ShoeShop.Web.Controllers
                 return View(new InventoryViewModel());
             }
         }
-
         public IActionResult Create()
         {
             var model = new CreateShoeDto

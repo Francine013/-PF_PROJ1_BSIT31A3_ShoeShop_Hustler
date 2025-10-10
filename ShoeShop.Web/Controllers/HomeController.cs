@@ -19,13 +19,10 @@ namespace ShoeShop.Web.Controllers
             _pullOutService = pullOutService;
             _reportService = reportService;
         }
-
-
         public async Task<IActionResult> Index()
         {
             try
             {
-
                 var allShoes = await _inventoryService.GetAllShoesAsync();
                 var inventoryReport = await _reportService.GetInventorySummaryAsync();
                 var lowStock = await _inventoryService.GetLowStockAsync();
@@ -57,6 +54,7 @@ namespace ShoeShop.Web.Controllers
                 TempData["Error"] = "An error occurred while loading the dashboard: " + ex.Message;
 
                 return View(new DashboardViewModel());
+
             }
         }
     }

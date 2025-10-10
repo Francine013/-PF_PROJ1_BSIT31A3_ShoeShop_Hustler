@@ -1,0 +1,105 @@
+﻿@model ShoeShop.Services.DTOs.PurchaseOrderDto
+
+@{
+    ViewData["Title"] = "Edit Purchase Order";
+}
+
+<h1>Edit Purchase Order</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+          
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Status" />
+            <input type="hidden" asp-for="SupplierId" />
+            <input type="hidden" asp-for="OrderNumber" />
+
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">Main Order Details</div>
+                <div class="card-body row">
+                    <div class="form-group col-md-4">
+                        <label asp-for="OrderDate" class="control-label"></label>
+                        <input asp-for="OrderDate" type="date" class="form-control" value="@Model.OrderDate.ToString("yyyy-MM-dd")" />
+                        <span asp-validation-for="OrderDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="SupplierName" class="control-label"></label>
+                        <input asp-for="SupplierName" class="form-control" readonly />
+                        <span asp-validation-for="SupplierName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="Status" class="control-label"></label>
+                        <input asp-for="Status" class="form-control" readonly />
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <h3><i class="fas fa-boxes"></i> Edit Order Items</h3>
+
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Product</th>
+                        <th>Current Qty</th>
+                        <th>Price</th>
+                        <th style="width: 20%;">New Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Items != null)
+                    {
+                        for (int i = 0; i < Model.Items.Count; i++)
+                        {
+                            <tr>
+                               
+                                <input type="hidden" asp-for="@Model.Items[i].Id" />
+                                <input type="hidden" asp-for="@Model.Items[i].ShoeColorVariationId" />
+                                <input type="hidden" asp-for="@Model.Items[i].ProductName" />
+                                <input type="hidden" asp-for="@Model.Items[i].UnitPrice" />
+                                <input type="hidden" asp-for="@Model.Items[i].UnitCost" />
+
+                                <td>@Model.Items[i].ProductName</td>
+
+                                <td>
+                                    <span class="badge badge-info">@Model.Items[i].QuantityOrdered</span>
+                                </td>
+
+                                <td>@Model.Items[i].UnitCost.ToString("C")</td>
+
+                                <td>
+                                    <input asp-for="@Model.Items[i].QuantityOrdered" type="number" min="1" class="form-control form-control-sm" />
+                                    <span asp-validation-for="@Model.Items[i].QuantityOrdered" class="text-danger"></span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="4">No items in this order to edit.</td></tr>
+                    }
+                </tbody>
+            </table>
+
+            <br />
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-save"></i> Save Changes</button>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-lg">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

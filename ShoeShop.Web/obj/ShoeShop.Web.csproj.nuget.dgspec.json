@@ -1,0 +1,271 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Web\\ShoeShop.Web.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Repository\\ShoeShop.Repository.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Repository\\ShoeShop.Repository.csproj",
+        "projectName": "ShoeShop.Repository",
+        "projectPath": "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Repository\\ShoeShop.Repository.csproj",
+        "packagesPath": "C:\\Users\\FM OBIS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Repository\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\FM OBIS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.Extensions.Configuration.FileExtensions": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Services\\ShoeShop.Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Services\\ShoeShop.Services.csproj",
+        "projectName": "ShoeShop.Services",
+        "projectPath": "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Services\\ShoeShop.Services.csproj",
+        "packagesPath": "C:\\Users\\FM OBIS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\FM OBIS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Repository\\ShoeShop.Repository.csproj": {
+                "projectPath": "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Repository\\ShoeShop.Repository.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Web\\ShoeShop.Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Web\\ShoeShop.Web.csproj",
+        "projectName": "ShoeShop.Web",
+        "projectPath": "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Web\\ShoeShop.Web.csproj",
+        "packagesPath": "C:\\Users\\FM OBIS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Web\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\FM OBIS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Repository\\ShoeShop.Repository.csproj": {
+                "projectPath": "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Repository\\ShoeShop.Repository.csproj"
+              },
+              "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Services\\ShoeShop.Services.csproj": {
+                "projectPath": "C:\\Users\\FM OBIS\\source\\repos\\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\\ShoeShop.Services\\ShoeShop.Services.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,118 @@
+﻿@model ShoeShop.Services.DTOs.CreatePurchaseOrderDto
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Create Purchase Order";
+
+    int nextItemIndex = 0;
+}
+
+<h1>Create Purchase Order</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <h4 class="mt-4">Order Details</h4>
+
+            <div class="form-group">
+                <label asp-for="OrderNumber" class="control-label"></label>
+                <input asp-for="OrderNumber" class="form-control" />
+                <span asp-validation-for="OrderNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SupplierId" class="control-label">Supplier</label>
+                <select asp-for="SupplierId" class="form-control" asp-items="@(ViewBag.Suppliers as SelectList)">
+                    <option value="">-- Select Supplier --</option>
+                </select>
+                <span asp-validation-for="SupplierId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OrderDate" class="control-label"></label>
+                <input asp-for="OrderDate" class="form-control" type="date" value="@(Model.OrderDate.ToString("yyyy-MM-dd"))" />
+                <span asp-validation-for="OrderDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ExpectedDate" class="control-label"></label>
+                <input asp-for="ExpectedDate" class="form-control" type="date" value="@(Model.ExpectedDate?.ToString("yyyy-MM-dd"))" />
+                <span asp-validation-for="ExpectedDate" class="text-danger"></span>
+            </div>
+
+            <h4 class="mt-4">Order Items</h4>
+
+            <table class="table table-bordered" id="orderItemsTable">
+                <thead>
+                    <tr>
+                        <th>Shoe Variation</th>
+                        <th>Quantity Ordered</th>
+                        <th>Unit Cost</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        // I-set ang starting index para sa bagong items
+                    }
+                    @if (Model.Items == null || Model.Items.Count == 0)
+                    {
+                        @Html.Partial("_PurchaseOrderItemRow", new ShoeShop.Services.DTOs.PurchaseOrderItemDto(), new ViewDataDictionary(ViewData) { { "Index", 0 } })
+                        nextItemIndex = 1;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < Model.Items.Count; i++)
+                        {
+                            @Html.Partial("_PurchaseOrderItemRow", Model.Items[i], new ViewDataDictionary(ViewData) { { "Index", i } })
+                            nextItemIndex = i + 1;
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <button type="button" class="btn btn-secondary btn-sm mb-3" onclick="addItemRow()">
+                <i class="fas fa-plus"></i> Add Item
+            </button>
+
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Create Order</button>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        var itemIndex = @nextItemIndex;
+
+        function addItemRow() {
+            $.ajax({
+                url: '@Url.Action("GetNewItemRow", "PurchaseOrder")',
+                type: 'GET',
+                data: { index: itemIndex },
+                success: function(data) {
+                    $('#orderItemsTable tbody').append(data);
+                    itemIndex++;
+
+                    var form = $('#orderItemsTable').closest('form');
+                    form.removeData('validator');
+                    form.removeData('unobtrusiveValidation');
+                    $.validator.unobtrusive.parse(form);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error loading new item row:", error);
+                }
+            });
+        }
+    </script>
+}

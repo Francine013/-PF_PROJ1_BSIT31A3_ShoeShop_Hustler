@@ -1,0 +1,47 @@
+﻿@model ShoeShop.Web.ViewModels.DashboardViewModel
+
+<h2>Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5>Total Shoes</h5>
+                <p class="card-text">@Model.TotalShoes</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5>Total Variations</h5>
+                <p class="card-text">@Model.TotalColorVariations</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5>Low Stock Items</h5>
+                <p class="card-text">@Model.LowStockItems</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-danger mb-3">
+            <div class="card-body">
+                <h5>Pending Pull-Outs</h5>
+                <p class="card-text">@Model.PendingPullOuts</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<h4>Recent Activities</h4>
+<ul>
+    @foreach (var act in Model.RecentActivities)
+    {
+        <li>@act.Timestamp: @act.Action</li>
+    }
+</ul>

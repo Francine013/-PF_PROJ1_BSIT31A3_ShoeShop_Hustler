@@ -1,0 +1,289 @@
+﻿@model ShoeShop.Web.ViewModels.InventoryViewModel
+
+@{
+    ViewData["Title"] = "Inventory Listing";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-6 mb-1">
+                <i class="fas fa-warehouse"></i> Shoe Inventory
+            </h1>
+            <p class="text-muted">Manage your shoe products and stock levels</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary shadow-sm">
+            <i class="fas fa-plus-circle"></i> Create New Shoe
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i> @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i> @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (Model?.ShoesWithStock != null)
+    {
+        var totalShoes = Model.ShoesWithStock.Count();
+        var totalStock = Model.ShoesWithStock.Sum(s => s.StockQuantity);
+        var availableShoes = Model.ShoesWithStock.Count(s => s.StockQuantity > 0);
+        var outOfStock = totalShoes - availableShoes;
+
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-shoe-prints fa-2x text-primary mb-2"></i>
+                        <h3 class="mb-0">@totalShoes</h3>
+                        <small class="text-muted">Total Products</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-boxes fa-2x text-success mb-2"></i>
+                        <h3 class="mb-0">@totalStock</h3>
+                        <small class="text-muted">Total Stock</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-check-circle fa-2x text-info mb-2"></i>
+                        <h3 class="mb-0">@availableShoes</h3>
+                        <small class="text-muted">Available</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-exclamation-triangle fa-2x text-danger mb-2"></i>
+                        <h3 class="mb-0">@outOfStock</h3>
+                        <small class="text-muted">Out of Stock</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="card border-0 shadow-sm mb-3">
+        <div class="card-body">
+            <div class="row g-2">
+                <div class="col-md-6">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search by name or brand..." />
+                </div>
+                <div class="col-md-3">
+                    <select id="statusFilter" class="form-select">
+                        <option value="all">All Status</option>
+                        <option value="available">Available</option>
+                        <option value="out">Out of Stock</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="sortBy" class="form-select">
+                        <option value="name">Sort by Name</option>
+                        <option value="brand">Sort by Brand</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="stock">Stock Level</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inventory Table -->
+    <div class="table-responsive bg-white rounded-3 shadow-sm p-3">
+        <table class="table table-hover align-middle mb-0" id="inventoryTable">
+            <thead class="table-light">
+                <tr>
+                    <th>Image</th>
+                    <th>Shoe Name</th>
+                    <th>Brand</th>
+                    <th>Price</th>
+                    <th>Total Stock</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model?.ShoesWithStock != null && Model.ShoesWithStock.Any())
+                {
+                    @foreach (var shoe in Model.ShoesWithStock)
+                    {
+                        var isAvailable = shoe.StockQuantity > 0;
+                        var stockClass = shoe.StockQuantity == 0 ? "text-danger" :
+                        shoe.StockQuantity < 10 ? "text-warning" : "text-success";
+
+                        <tr data-name="@shoe.Name.ToLower()"
+                            data-brand="@shoe.Brand.ToLower()"
+                            data-price="@shoe.Price"
+                            data-stock="@shoe.StockQuantity"
+                            data-status="@(isAvailable ? "available" : "out")">
+                            <td>
+                                <img src="@(!string.IsNullOrEmpty(shoe.ImageUrl) ? shoe.ImageUrl : "https://placehold.co/50x50/cccccc/333333?text=N/A")"
+                                     onerror="this.onerror=null;this.src='https://placehold.co/50x50/cccccc/333333?text=N/A';"
+                                     alt="@shoe.Name"
+                                     class="rounded shadow-sm"
+                                     style="width: 50px; height: 50px; object-fit: cover;" />
+                            </td>
+                            <td>
+                                <strong>@shoe.Name</strong>
+                                @if (!shoe.IsActive)
+                                {
+                                    <br />
+                        
+                                    <small class="badge bg-secondary">Inactive</small>
+                                }
+                            </td>
+                            <td>@shoe.Brand</td>
+                            <td><strong>₱@shoe.Price.ToString("N2")</strong></td>
+                            <td>
+                                <span class="badge @stockClass fs-6">
+                                    @shoe.StockQuantity
+                                </span>
+                                @if (shoe.StockQuantity > 0 && shoe.StockQuantity < 10)
+                                {
+                                    <br />
+                        
+                                    <small class="text-warning"><i class="fas fa-exclamation-circle"></i> Low Stock</small>
+                                }
+                            </td>
+                            <td>
+                                @if (isAvailable)
+                                {
+                                    <span class="badge bg-success">Available</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Out of Stock</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Details" asp-route-id="@shoe.Id"
+                                       class="btn btn-sm btn-info text-white"
+                                       title="View Details">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@shoe.Id"
+                                       class="btn btn-sm btn-warning text-dark"
+                                       title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form asp-action="Delete" asp-route-id="@shoe.Id" method="post" class="d-inline"
+                                          onsubmit="return confirm('Are you sure you want to delete @shoe.Name?');">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-5">
+                            <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
+                            <h5>No shoes found in the inventory</h5>
+                            <p>Click "Create New Shoe" to add your first product.</p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (Model?.ShoesWithStock != null && Model.ShoesWithStock.Any())
+    {
+        <div class="mt-3 text-muted">
+            <small>
+                <i class="fas fa-info-circle"></i>
+                Showing <span id="rowCount">@Model.ShoesWithStock.Count()</span> of @Model.ShoesWithStock.Count() products
+            </small>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const statusFilter = document.getElementById('statusFilter');
+        const sortBy = document.getElementById('sortBy');
+        const table = document.getElementById('inventoryTable');
+        const tbody = table.querySelector('tbody');
+        const rowCount = document.getElementById('rowCount');
+
+        function filterAndSort() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const statusValue = statusFilter.value;
+            const sortValue = sortBy.value;
+
+            let rows = Array.from(tbody.querySelectorAll('tr[data-name]'));
+            let visibleCount = 0;
+            rows.forEach(row => {
+                const name = row.getAttribute('data-name');
+                const brand = row.getAttribute('data-brand');
+                const status = row.getAttribute('data-status');
+
+                const matchesSearch = name.includes(searchTerm) || brand.includes(searchTerm);
+                const matchesStatus = statusValue === 'all' || status === statusValue;
+
+                if (matchesSearch && matchesStatus) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            rows = rows.filter(row => row.style.display !== 'none');
+
+            rows.sort((a, b) => {
+                switch(sortValue) {
+                    case 'name':
+                        return a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
+                    case 'brand':
+                        return a.getAttribute('data-brand').localeCompare(b.getAttribute('data-brand'));
+                    case 'price-asc':
+                        return parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price'));
+                    case 'price-desc':
+                        return parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price'));
+                    case 'stock':
+                        return parseInt(b.getAttribute('data-stock')) - parseInt(a.getAttribute('data-stock'));
+                    default:
+                        return 0;
+                }
+            });
+
+            rows.forEach(row => tbody.appendChild(row));
+            if (rowCount) {
+                rowCount.textContent = visibleCount;
+            }
+        }
+        if (searchInput) searchInput.addEventListener('input', filterAndSort);
+        if (statusFilter) statusFilter.addEventListener('change', filterAndSort);
+        if (sortBy) sortBy.addEventListener('change', filterAndSort);
+        setTimeout(() => {
+            const alerts = document.querySelectorAll('.alert-dismissible');
+            alerts.forEach(alert => {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+    </script>
+}

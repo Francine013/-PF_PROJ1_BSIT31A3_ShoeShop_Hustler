@@ -1,0 +1,105 @@
+﻿@model ShoeShop.Services.DTOs.PurchaseOrderDto
+
+@{
+    ViewData["Title"] = $"PO Details: @Model.OrderNumber";
+}
+
+<h1 class="mb-4">Purchase Order Details</h1>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-primary text-white">
+        Order #@Model.OrderNumber
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <dl class="row">
+                    <dt class="col-sm-4">ID:</dt>
+                    <dd class="col-sm-8">@Model.Id</dd>
+
+                    <dt class="col-sm-4">Supplier:</dt>
+                    <dd class="col-sm-8">@Model.SupplierName</dd>
+
+                    <dt class="col-sm-4">Order Date:</dt>
+                    <dd class="col-sm-8">@Model.OrderDate.ToString("yyyy-MM-dd")</dd>
+
+                    <dt class="col-sm-4">Expected Date:</dt>
+                    <dd class="col-sm-8">@(Model.ExpectedDate.ToString("yyyy-MM-dd"))</dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <dl class="row">
+                    <dt class="col-sm-4">Status:</dt>
+                    <dd class="col-sm-8">
+                        <span class="badge @(Model.Status == "Received" ? "bg-success" : Model.Status == "Pending" ? "bg-warning text-dark" : "bg-secondary")">
+                            @Model.Status
+                        </span>
+                    </dd>
+
+                    <dt class="col-sm-4">Total Amount:</dt>
+                    <dd class="col-sm-8">@Model.TotalAmount.ToString("C2")</dd>
+
+                    <dt class="col-sm-4">Total Items:</dt>
+                    <dd class="col-sm-8">@Model.Items.Count</dd>
+
+                    <dt class="col-sm-4">Total Ordered Qty:</dt>
+                    <dd class="col-sm-8">@Model.Items.Sum(i => i.QuantityOrdered)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="mt-4 mb-3">Order Items</h3>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Item ID</th>
+                <th>Shoe Variation ID</th>
+                <th>Unit Cost</th>
+                <th>Ordered Qty</th>
+                <th>Received Qty</th>
+                <th>Line Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.ShoeColorVariationId</td>
+                    <td>@item.UnitCost.ToString("C2")</td>
+                    <td>@item.QuantityOrdered</td>
+                    <td>@item.QuantityReceived</td>
+                    <td>@((item.QuantityOrdered * item.UnitCost).ToString("C2"))</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="table-info">
+                <td colspan="4" class="text-end fw-bold">Grand Total:</td>
+                <td>@Model.Items.Sum(i => i.QuantityReceived)</td>
+                <td class="fw-bold">@Model.TotalAmount.ToString("C2")</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit Order</a>
+
+    @if (Model.Status == "Pending")
+    {
+        <a asp-action="Receive" asp-route-id="@Model.Id" class="btn btn-success"
+           onclick="return confirm('Are you sure you want to RECEIVE this order? This will update inventory stock.');">
+            <i class="fas fa-check"></i> Receive Order
+        </a>
+    }
+
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+}

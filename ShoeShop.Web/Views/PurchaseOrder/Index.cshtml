@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ShoeShop.Services.DTOs.PurchaseOrderDto>
+
+@{
+    ViewData["Title"] = "Purchase Orders";
+}
+
+<h1>Purchase Orders</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Create New Order</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Order Date</th>
+                <th>Supplier</th>
+                <th>Status</th>
+                <th>Ordered Quantity</th> @* Label changed for clarity *@
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                    <td>@order.SupplierName</td>
+                    <td>@order.Status</td>
+
+                    <td>
+                        @order.Items.Sum(item => item.QuantityOrdered)
+                    </td>
+
+                    <td>
+                        <a asp-action="Details" asp-route-id="@order.Id" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Edit" asp-route-id="@order.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@order.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+}

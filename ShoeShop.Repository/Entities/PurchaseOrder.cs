@@ -8,7 +8,6 @@ namespace ShoeShop.Repository.Entities
 	{
 		[Key]
 		public int Id { get; set; }
-
 		[Required]
 		[MaxLength(50)]
 		public string OrderNumber { get; set; } = string.Empty;
@@ -24,11 +23,8 @@ namespace ShoeShop.Repository.Entities
 
 		[Column(TypeName = "decimal(18,2)")]
 		public decimal TotalAmount { get; set; }
-
-		// Navigation Properties
 		[ForeignKey(nameof(SupplierId))]
 		public virtual Supplier Supplier { get; set; } = null!;
-
 		public virtual ICollection<PurchaseOrderItem> OrderItems { get; set; } = new List<PurchaseOrderItem>();
 	}
 }

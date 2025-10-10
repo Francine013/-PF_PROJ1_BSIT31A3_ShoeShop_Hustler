@@ -6,7 +6,6 @@ namespace ShoeShop.Web.Controllers
     public class AccountController : Controller
     {
         public IActionResult Login() => View();
-
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
@@ -29,6 +28,8 @@ namespace ShoeShop.Web.Controllers
             return View();
         }
 
+
+
         public IActionResult CreateAccount() => View();
 
         [HttpPost]
@@ -37,6 +38,7 @@ namespace ShoeShop.Web.Controllers
             HttpContext.Session.SetString("UserName", username);
             return RedirectToAction("Dashboard", "Home");
         }
+
 
         public IActionResult Logout()
         {

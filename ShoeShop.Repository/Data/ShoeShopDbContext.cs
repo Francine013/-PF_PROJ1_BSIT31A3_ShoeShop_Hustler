@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ShoeShop.Repository.Entities;
 using ShoeShop.Repository.Entities.Enums;
 
+
 namespace ShoeShop.Repository.Data
 {
     public class ShoeShopDbContext : IdentityDbContext<IdentityUser>

@@ -18,13 +18,11 @@ namespace ShoeShop.Repository.Console
 
             using var context = new ShoeShopDbContext(optionsBuilder.Options);
 
-            // Ensure database is created and migrations are applied
             System.Console.WriteLine("📦 Creating database and applying migrations...");
-            await context.Database.EnsureDeletedAsync(); // Clean slate for testing
+            await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
             System.Console.WriteLine("✅ Database created successfully!\n");
 
-            // Run all tests
             await TestShoeOperations(context);
             await TestColorVariationOperations(context);
             await TestSupplierOperations(context);
@@ -42,7 +40,7 @@ namespace ShoeShop.Repository.Console
             System.Console.WriteLine("🔹 TEST 1: Shoe CRUD Operations");
             System.Console.WriteLine("================================");
 
-            // CREATE
+   
             var newShoe = new Shoe
             {
                 Name = "Test Shoe",
@@ -57,12 +55,11 @@ namespace ShoeShop.Repository.Console
             context.Shoes.Add(newShoe);
             await context.SaveChangesAsync();
             System.Console.WriteLine($"✅ Created shoe: {newShoe.Name} (ID: {newShoe.Id})");
-
-            // READ
+            
             var shoe = await context.Shoes.FindAsync(newShoe.Id);
             System.Console.WriteLine($"✅ Read shoe: {shoe?.Name}");
 
-            // UPDATE
+     
             if (shoe != null)
             {
                 shoe.Price = 110.00m;
@@ -70,7 +67,7 @@ namespace ShoeShop.Repository.Console
                 System.Console.WriteLine($"✅ Updated shoe price to: ${shoe.Price}");
             }
 
-            // DELETE
+
             if (shoe != null)
             {
                 context.Shoes.Remove(shoe);
@@ -101,12 +98,11 @@ namespace ShoeShop.Repository.Console
                 await context.SaveChangesAsync();
                 System.Console.WriteLine($"✅ Created color variation: {colorVariation.ColorName} for {shoe.Name}");
 
-                // Update stock
+
                 colorVariation.StockQuantity = 150;
                 await context.SaveChangesAsync();
                 System.Console.WriteLine($"✅ Updated stock quantity to: {colorVariation.StockQuantity}");
 
-                // Delete
                 context.ShoeColorVariations.Remove(colorVariation);
                 await context.SaveChangesAsync();
                 System.Console.WriteLine($"✅ Deleted color variation\n");
@@ -180,7 +176,6 @@ namespace ShoeShop.Repository.Console
                 await context.SaveChangesAsync();
                 System.Console.WriteLine($"✅ Added order item: {orderItem.QuantityOrdered} units @ ${orderItem.UnitCost}");
 
-                // Update order status
                 purchaseOrder.Status = OrderStatus.Confirmed;
                 await context.SaveChangesAsync();
                 System.Console.WriteLine($"✅ Updated order status to: {purchaseOrder.Status}\n");
@@ -213,13 +208,11 @@ namespace ShoeShop.Repository.Console
                 await context.SaveChangesAsync();
                 System.Console.WriteLine($"✅ Created pull-out request: {pullOut.Quantity} units of {colorVariation.Shoe.Name}");
 
-                // Approve pull-out
                 pullOut.Status = PullOutStatus.Approved;
                 pullOut.ApprovedBy = "Manager Test";
                 await context.SaveChangesAsync();
                 System.Console.WriteLine($"✅ Approved pull-out by: {pullOut.ApprovedBy}");
 
-                // Complete pull-out and update stock
                 pullOut.Status = PullOutStatus.Completed;
                 colorVariation.StockQuantity -= pullOut.Quantity;
                 await context.SaveChangesAsync();
@@ -232,7 +225,6 @@ namespace ShoeShop.Repository.Console
             System.Console.WriteLine("🔹 TEST 6: Complex Queries");
             System.Console.WriteLine("==========================");
 
-            // Low stock items
             var lowStockItems = await context.ShoeColorVariations
                 .Include(cv => cv.Shoe)
                 .Where(cv => cv.StockQuantity <= cv.ReorderLevel)
@@ -244,7 +236,6 @@ namespace ShoeShop.Repository.Console
                 System.Console.WriteLine($"   - {item.Shoe.Name} ({item.ColorName}): {item.StockQuantity} units");
             }
 
-            // Pending purchase orders
             var pendingOrders = await context.PurchaseOrders
                 .Include(po => po.Supplier)
                 .Where(po => po.Status == OrderStatus.Pending || po.Status == OrderStatus.Confirmed)
@@ -256,14 +247,12 @@ namespace ShoeShop.Repository.Console
                 System.Console.WriteLine($"   - {order.OrderNumber} from {order.Supplier.Name}: ${order.TotalAmount}");
             }
 
-            // Total inventory value
             var totalInventoryValue = await context.ShoeColorVariations
                 .Include(cv => cv.Shoe)
                 .SumAsync(cv => cv.StockQuantity * cv.Shoe.Cost);
 
             System.Console.WriteLine($"\n💰 Total Inventory Value: ${totalInventoryValue:N2}");
 
-            // Shoes by brand
             var shoesByBrand = await context.Shoes
                 .GroupBy(s => s.Brand)
                 .Select(g => new { Brand = g.Key, Count = g.Count() })
@@ -282,7 +271,6 @@ namespace ShoeShop.Repository.Console
             System.Console.WriteLine("🔹 TEST 7: Relationship Navigation");
             System.Console.WriteLine("===================================");
 
-            // Shoe -> ColorVariations
             var shoeWithColors = await context.Shoes
                 .Include(s => s.ColorVariations)
                 .FirstOrDefaultAsync();
@@ -297,7 +285,6 @@ namespace ShoeShop.Repository.Console
                 }
             }
 
-            // PurchaseOrder -> Supplier & Items
             var orderWithDetails = await context.PurchaseOrders
                 .Include(po => po.Supplier)
                 .Include(po => po.OrderItems)
@@ -316,7 +303,6 @@ namespace ShoeShop.Repository.Console
                 }
             }
 
-            // StockPullOut -> ColorVariation -> Shoe
             var pullOutWithDetails = await context.StockPullOuts
                 .Include(spo => spo.ShoeColorVariation)
                     .ThenInclude(cv => cv.Shoe)

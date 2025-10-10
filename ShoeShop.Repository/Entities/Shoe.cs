@@ -31,7 +31,9 @@ namespace ShoeShop.Repository.Entities
 		public bool IsActive { get; set; } = true;
 
 		public DateTime CreatedDate { get; set; } = DateTime.Now;
-		
+	
 		public virtual ICollection<ShoeColorVariation> ColorVariations { get; set; } = new List<ShoeColorVariation>();
+
+		
 	}
 }

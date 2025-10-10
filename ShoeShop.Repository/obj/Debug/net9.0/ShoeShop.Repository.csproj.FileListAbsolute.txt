@@ -1,0 +1,15 @@
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\bin\Debug\net9.0\ShoeShop.Repository.deps.json
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\bin\Debug\net9.0\ShoeShop.Repository.runtimeconfig.json
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\bin\Debug\net9.0\ShoeShop.Repository.dll
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\bin\Debug\net9.0\ShoeShop.Repository.pdb
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\obj\Debug\net9.0\ShoeShop.Repository.csproj.AssemblyReference.cache
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\obj\Debug\net9.0\ShoeShop.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\obj\Debug\net9.0\ShoeShop.Repository.AssemblyInfoInputs.cache
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\obj\Debug\net9.0\ShoeShop.Repository.AssemblyInfo.cs
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\obj\Debug\net9.0\ShoeShop.Repository.csproj.CoreCompileInputs.cache
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\obj\Debug\net9.0\ShoeShop.Repository.sourcelink.json
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\obj\Debug\net9.0\ShoeShop.Repository.dll
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\obj\Debug\net9.0\refint\ShoeShop.Repository.dll
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\obj\Debug\net9.0\ShoeShop.Repository.pdb
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\obj\Debug\net9.0\ShoeShop.Repository.genruntimeconfig.cache
+C:\Users\FM OBIS\Source\Repos\-PF_PROJ1_BSIT31A3_ShoeShop_Hustler\ShoeShop.Repository\obj\Debug\net9.0\ref\ShoeShop.Repository.dll

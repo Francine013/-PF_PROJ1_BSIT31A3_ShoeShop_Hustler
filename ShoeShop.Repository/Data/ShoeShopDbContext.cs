@@ -11,8 +11,6 @@ namespace ShoeShop.Repository.Data
         public ShoeShopDbContext(DbContextOptions<ShoeShopDbContext> options) : base(options)
         {
         }
-
-
         public DbSet<Shoe> Shoes { get; set; }
         public DbSet<ShoeColorVariation> ShoeColorVariations { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
@@ -58,7 +56,6 @@ namespace ShoeShop.Repository.Data
 
             SeedStaticData(modelBuilder);
         }
-
         private void SeedStaticData(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Supplier>().HasData(
@@ -76,7 +73,6 @@ namespace ShoeShop.Repository.Data
                 new ShoeColorVariation { Id = 1, ShoeId = 1, ColorName = "White/Red", HexCode = "#FFFFFF", StockQuantity = 25, ReorderLevel = 5, IsActive = true },
                 new ShoeColorVariation { Id = 2, ShoeId = 2, ColorName = "Black/White", HexCode = "#000000", StockQuantity = 30, ReorderLevel = 5, IsActive = true }
             );
-
         }
     }
 }

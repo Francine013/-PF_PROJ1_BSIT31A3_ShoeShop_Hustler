@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
+
+
 namespace ShoeShop.Repository.Data
 {
     public class ShoeShopDbContextFactory : IDesignTimeDbContextFactory<ShoeShopDbContext>
@@ -16,8 +18,8 @@ namespace ShoeShop.Repository.Data
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
-
             var connectionString = configuration.GetConnectionString("DefaultConnection");
+
 
             var optionsBuilder = new DbContextOptionsBuilder<ShoeShopDbContext>();
             optionsBuilder.UseSqlite(connectionString);

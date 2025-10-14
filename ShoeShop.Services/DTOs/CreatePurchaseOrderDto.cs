@@ -2,6 +2,8 @@
 using System.Collections.Generic; 
 using System; 
 
+
+
 namespace ShoeShop.Services.DTOs
 {
     public class PurchaseOrderItemDto
@@ -37,9 +39,6 @@ namespace ShoeShop.Services.DTOs
         public DateTime SoldQuantity { get; set; }
         public string Status { get; set; } = string.Empty;
         public decimal TotalAmount { get; set; }
-
-        
-
         public List<PurchaseOrderItemDto> Items { get; set; } = new();
     }
 
@@ -49,21 +48,17 @@ namespace ShoeShop.Services.DTOs
         [StringLength(50, ErrorMessage = "Order Number cannot exceed 50 characters.")]
         [Display(Name = "Order Number")]
         public string OrderNumber { get; set; } = string.Empty;
-
         [Required(ErrorMessage = "Please select a Supplier.")]
         [Range(1, int.MaxValue, ErrorMessage = "Please select a valid Supplier.")]
         [Display(Name = "Supplier")]
         public int SupplierId { get; set; }
-
         [Required(ErrorMessage = "Order Date is required.")]
         [DataType(DataType.Date)]
         [Display(Name = "Order Date")]
         public DateTime OrderDate { get; set; } = DateTime.Now;
-
         [DataType(DataType.Date)]
         [Display(Name = "Expected Date")]
         public DateTime? ExpectedDate { get; set; }
-
         [Required(ErrorMessage = "The order must contain at least one item.")]
         public List<PurchaseOrderItemDto> Items { get; set; } = new();
     }

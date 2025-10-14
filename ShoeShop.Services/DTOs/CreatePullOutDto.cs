@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
+
+
 namespace ShoeShop.Services.DTOs
 {
     public class CreatePullOutDto
@@ -35,3 +37,5 @@ namespace ShoeShop.Services.DTOs
         public string Status { get; set; } = string.Empty;
     }
 }
+
+

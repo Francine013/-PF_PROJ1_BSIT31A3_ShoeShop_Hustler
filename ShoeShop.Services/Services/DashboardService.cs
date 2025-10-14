@@ -30,8 +30,6 @@ namespace ShoeShop.Services.Services
                                                 (cv, s) => new { cv.StockQuantity, s.Cost })
                                           .SumAsync(x => x.StockQuantity * x.Cost)
             };
-
-            // Stock Alerts
             dashboard.StockAlerts = await _db.ShoeColorVariations
                 .Where(cv => cv.StockQuantity <= cv.ReorderLevel)
                 .Join(_db.Shoes,
@@ -46,7 +44,6 @@ namespace ShoeShop.Services.Services
                       })
                 .ToListAsync();
 
-            // Recent Activities (last 5 pull-outs)
             dashboard.RecentActivities = await _db.StockPullOuts
                 .OrderByDescending(spo => spo.RequestedDate)
                 .Take(5)
@@ -57,7 +54,6 @@ namespace ShoeShop.Services.Services
                     Timestamp = spo.RequestedDate
                 })
                 .ToListAsync();
-
             return dashboard;
         }
     }

@@ -1,0 +1,134 @@
+﻿@model ShoeShop.Services.DTOs.ShoeDto
+
+@{
+    ViewData["Title"] = "Shoe Details";
+}
+
+<div class="container py-4" id="shoe-details">
+    <h2 class="mb-4">Shoe Details</h2>
+
+    <div class="card shadow-sm border-0">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img id="shoeImage"
+                     src="@Model.ImageUrl"
+                     onerror="this.onerror=null;this.src='https://placehold.co/400x400?text=No+Image';"
+                     class="img-fluid rounded-start"
+                     alt="@Model.Name">
+            </div>
+
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title">@Model.Name</h3>
+                    <p><strong>Brand:</strong> @Model.Brand</p>
+                    <p><strong>Price:</strong> ₱@Model.Price.ToString("N2")</p>
+                    <p><strong>Description:</strong> @Model.Description</p>
+                    <p><strong>Stock Quantity:</strong> @Model.StockQuantity</p>
+                    <p>
+                        <strong>Status:</strong>
+                        @if (Model.StockQuantity > 0)
+                        {
+                            <span class="badge bg-success">Available</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Out of Stock</span>
+                        }
+                    </p>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-dark">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to List
+                        </a>
+
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#pullOutModal">
+                            <i class="fas fa-box-open"></i> Pull Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <i class="fas fa-check-circle"></i> @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            <i class="fas fa-times-circle"></i> @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="pullOutModal" tabindex="-1" aria-labelledby="pullOutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content border-0 shadow-lg">
+            <form asp-controller="PullOut" asp-action="Create" method="post">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="pullOutModalLabel">
+                        <i class="fas fa-box-open"></i> Pull Out Item
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="ShoeColorVariationId" value="@Model.Id" />
+
+                    <div class="mb-3">
+                        <label for="Quantity" class="form-label fw-bold">Quantity</label>
+                        <input type="number" class="form-control" id="Quantity" name="Quantity" min="1" max="@Model.StockQuantity" required />
+                        <small class="text-muted">Available stock: @Model.StockQuantity</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Reason" class="form-label fw-bold">Reason</label>
+                        <input type="text" class="form-control" id="Reason" name="Reason" maxlength="100" placeholder="e.g. Damaged, Returned to supplier" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="RequestedBy" class="form-label fw-bold">Requested By Name</label>
+                        <input type="text"
+                               class="form-control"
+                               name="RequestedBy"
+                               id="RequestedBy"
+                               placeholder="Enter the name of the requestor"
+                               required />
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-check"></i> Confirm Pull Out
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const shoeId = '@Model.Id';
+        async function refreshDetails() {
+            const res = await fetch(`/Inventory/GetShoeDetailsJson/${shoeId}`);
+            if (!res.ok) return;
+            const data = await res.json();
+            document.getElementById('shoeStock').textContent = data.stockQuantity;
+        }
+        setInterval(refreshDetails, 10000);
+    </script>
+}

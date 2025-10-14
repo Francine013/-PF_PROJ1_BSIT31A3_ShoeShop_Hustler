@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ShoeShop.Web.Models.ViewModels.ReportViewModel>
+
+@{
+    ViewData["Title"] = "Report";
+}
+
+<h1>Inventory Report</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Brand</th>
+            <th>Stock Quantity</th>
+            <th>Sold Quantity</th>
+            <th>Revenue</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.BrandName</td>
+                <td>@item.StockQuantity</td>
+                <td>@item.SoldQuantity</td>
+                <td>@item.Revenue</td>
+            </tr>
+        }
+    </tbody>
+</table>

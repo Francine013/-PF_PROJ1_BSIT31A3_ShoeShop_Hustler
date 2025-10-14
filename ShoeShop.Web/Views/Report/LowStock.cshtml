@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ShoeShop.Web.Models.ViewModels.LowStockReportViewModel>
+
+@{
+    ViewData["Title"] = "Low Stock Report";
+}
+
+<h2 class="text-danger">⚠️ Low Stock Items</h2>
+
+<table class="table table-hover table-bordered">
+    <thead class="table-danger">
+        <tr>
+            <th>Product</th>
+            <th>Brand</th>
+            <th>Stock Quantity</th>
+            <th>Reorder Level</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="4" class="text-center text-muted">All stocks are sufficient ✅</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.BrandName</td>
+                    <td>@item.StockQuantity</td>
+                    <td>@item.ReorderLevel</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

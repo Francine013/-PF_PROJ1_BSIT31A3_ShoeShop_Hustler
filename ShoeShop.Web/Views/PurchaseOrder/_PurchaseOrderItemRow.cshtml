@@ -1,0 +1,25 @@
+﻿@model ShoeShop.Services.DTOs.PurchaseOrderItemDto
+@{
+    var index = ViewData["Index"] ?? 0;
+    var namePrefix = $"Items[{index}]";
+}
+
+<tr data-index="@index">
+    <td>
+        <select asp-for="@Model.ShoeColorVariationId" name="@(namePrefix).ShoeColorVariationId" class="form-control" asp-items="@(ViewBag.ShoeVariations as SelectList)">
+            <option value="">-- Select Shoe --</option>
+        </select>
+        <span asp-validation-for="@Model.ShoeColorVariationId" name="@(namePrefix).ShoeColorVariationId" class="text-danger"></span>
+    </td>
+    <td>
+        <input asp-for="@Model.QuantityOrdered" name="@(namePrefix).QuantityOrdered" class="form-control" type="number" min="1" required />
+        <span asp-validation-for="@Model.QuantityOrdered" class="text-danger"></span>
+    </td>
+    <td>
+        <input asp-for="@Model.UnitCost" name="@(namePrefix).UnitCost" class="form-control" type="number" step="0.01" min="0" required />
+        <span asp-validation-for="@Model.UnitCost" class="text-danger"></span>
+    </td>
+    <td>
+        <button type="button" class="btn btn-danger btn-sm" onclick="$(this).closest('tr').remove();"><i class="fas fa-trash"></i></button>
+    </td>
+</tr>

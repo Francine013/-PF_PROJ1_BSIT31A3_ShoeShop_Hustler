@@ -12,7 +12,6 @@ namespace ShoeShop.Web.ViewModels
         public List<StockAlert> StockAlerts { get; set; } = new List<StockAlert>();
         public List<RecentActivity> RecentActivities { get; set; } = new List<RecentActivity>();
     }
-
     public class StockAlert
     {
         public string ShoeName { get; set; } = string.Empty;
@@ -20,7 +19,6 @@ namespace ShoeShop.Web.ViewModels
         public int CurrentStock { get; set; }
         public int ReorderLevel { get; set; }
     }
-
     public class RecentActivity
     {
         public string Action { get; set; } = string.Empty;
